@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "core",
+    "apps/cli",
+    "apps/desktop/src-tauri", "engines/minimax", "engines/mcts",
+]
+
+[workspace.package]
+license = "MIT"
+edition = "2021"
+repository = "https://github.com/TheBlackSquidward/diesel"
+
+
