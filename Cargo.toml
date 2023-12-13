@@ -1,8 +1,9 @@
 [workspace]
+resolver="2"
 members = [
     "core",
     "apps/cli",
-    "apps/desktop/src-tauri", "engines/minimax", "engines/mcts",
+    "apps/desktop/src-tauri", "engines/minimax", "engines/mcts", "crates/attack-tables",
 ]
 
 [workspace.package]
