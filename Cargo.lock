@@ -91,6 +91,7 @@ name = "attack-tables"
 version = "0.1.0"
 dependencies = [
  "core",
+ "rand 0.8.5",
 ]
 
 [[package]]
@@ -355,6 +356,10 @@ dependencies = [
  "bytes",
  "memchr",
 ]
+
+[[package]]
+name = "constants"
+version = "0.1.0"
 
 [[package]]
 name = "convert_case"

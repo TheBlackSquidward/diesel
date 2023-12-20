@@ -1,3 +1,6 @@
+mod parse;
+mod builder;
+
 use std::fmt;
 use std::str::FromStr;
 
@@ -10,9 +13,13 @@ use crate::square::Square;
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct Board {
-    pub bitboards_pieces: [[BitBoard; NUM_PIECES]; NUM_COLORS],
-    pub bitboards_side: [BitBoard; NUM_COLORS],
-    pub to_move: Color,
+    piece_bitboards: [[BitBoard; NUM_PIECES]; NUM_COLORS],
+    side_bitboards: [BitBoard; NUM_COLORS],
+    occupancy_bitboard: BitBoard,
+
+    to_move: Color,
+    en_passant_square: Option<Square>,
+    hash: u64,
 }
 
 impl Board {
@@ -173,48 +180,5 @@ impl Default for Board {
     fn default() -> Self {
         Board::from_str("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
             .expect("Failed to parse default FEN string")
-    }
-}
-
-impl FromStr for Board {
-    type Err = &'static str;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut board = Board::new();
-        let mut file = 0;
-        let mut rank = 7;
-
-        for c in s.chars() {
-            match c {
-                '1'..='8' => {
-                    let empty_squares = c.to_digit(10).unwrap() as usize;
-                    file += empty_squares;
-                }
-                '/' => {
-                    file = 0;
-                    rank -= 1;
-                }
-                'r' | 'n' | 'b' | 'q' | 'k' | 'p' | 'R' | 'N' | 'B' | 'Q' | 'K' | 'P' => {
-                    let square = Square::create_square(Rank::from_index(rank), File::from_index(file));
-                    let color = if c.is_lowercase() { Color::Black } else { Color::White };
-
-                    match c.to_ascii_lowercase() {
-                        'r' => board.set_piece_at(square, Piece::Rook, color),
-                        'n' => board.set_piece_at(square, Piece::Knight, color),
-                        'b' => board.set_piece_at(square, Piece::Bishop, color),
-                        'q' => board.set_piece_at(square, Piece::Queen, color),
-                        'k' => board.set_piece_at(square, Piece::King, color),
-                        'p' => board.set_piece_at(square, Piece::Pawn, color),
-                        _ => return Err("Invalid FEN string"),
-                    }
-
-                    file += 1;
-                }
-                ' ' => break,
-                _ => return Err("Invalid FEN string"),
-            }
-        }
-
-        Ok(board)
     }
 }

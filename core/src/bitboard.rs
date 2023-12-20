@@ -80,12 +80,26 @@ impl BitBoard {
         self.0 |= 1u64 << sq.to_int();
     }
 
-    pub fn count_bits(&self) -> u32 {
+    pub fn get_ls1b_index(&self) -> u32 {
+        self.0.trailing_zeros()
+    }
+
+    pub fn pop_bit(&mut self, square: u32) {
+        if (self.0 & (1u64 << square)) != 0 {
+            self.0 ^= 1u64 << square;
+        }
+    }
+
+    pub fn count_bits(self) -> u32 {
         self.0.count_ones()
     }
 
-    pub fn as_u64(&self) -> u64 {
+    pub fn as_u64(self) -> u64 {
         self.0
+    }
+
+    pub fn is_empty(self) -> bool {
+        self == EMPTY_BITBOARD
     }
 }
 
