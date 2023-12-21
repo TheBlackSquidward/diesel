@@ -2,8 +2,9 @@
 resolver="2"
 members = [
     "core",
+    "crates/*",
     "apps/cli",
-    "apps/desktop/src-tauri", "engines/minimax", "engines/mcts", "crates/attack-tables", "crates/constants",
+    "apps/desktop/src-tauri",
 ]
 
 [workspace.package]

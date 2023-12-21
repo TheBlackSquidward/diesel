@@ -1,5 +1,7 @@
+use std::str::FromStr;
 use rand::Rng;
 
+use core::board::Board;
 use core::bitboard::{BitBoard, EMPTY_BITBOARD};
 use core::square::{ALL_SQUARES, Square};
 
@@ -307,6 +309,8 @@ fn try_make_bishop_table(square: Square, magic_entry: &MagicEntry) -> Result<Vec
 }
 
 fn main() {
-    generate_rook_magics();
-    generate_bishop_magics();
+    // generate_rook_magics();
+    // generate_bishop_magics();
+    let board = Board::from_str("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").unwrap();
+    println!("{}", board)
 }

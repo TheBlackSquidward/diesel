@@ -31,6 +31,38 @@ impl Piece {
             piece
         }
     }
+    pub fn to_fancy_string(&self, color: Color) -> String {
+        match color {
+            Color::White => match self {
+                Piece::Pawn => "♙",
+                Piece::Knight => "♘",
+                Piece::Bishop => "♗",
+                Piece::Rook => "♖",
+                Piece::Queen => "♕",
+                Piece::King => "♔",
+            },
+            Color::Black => match self {
+                Piece::Pawn => "♟",
+                Piece::Knight => "♞",
+                Piece::Bishop => "♝",
+                Piece::Rook => "♜",
+                Piece::Queen => "♛",
+                Piece::King => "♚",
+            },
+        }.to_string()
+    }
+
+    pub fn from_char(c: char) -> Result<Self, ()> {
+        match c {
+            'p' => Ok(Piece::Pawn),
+            'n' => Ok(Piece::Knight),
+            'b' => Ok(Piece::Bishop),
+            'r' => Ok(Piece::Rook),
+            'q' => Ok(Piece::Queen),
+            'k' => Ok(Piece::King),
+            _ => Err(()),
+        }
+    }
 
     pub fn to_index(&self) -> usize {
         *self as usize

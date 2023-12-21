@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum File {
     A = 0,
@@ -38,6 +40,20 @@ impl File {
         }
     }
 
+    pub fn from_char(c: char) -> Result<Self, ()> {
+        match c {
+            'a' => Ok(File::A),
+            'b' => Ok(File::B),
+            'c' => Ok(File::C),
+            'd' => Ok(File::D),
+            'e' => Ok(File::E),
+            'f' => Ok(File::F),
+            'g' => Ok(File::G),
+            'h' => Ok(File::H),
+            _ => Err(()),
+        }
+    }
+
     pub fn left(&self) -> File {
         if *self as usize == 0 {
             *self
@@ -56,5 +72,27 @@ impl File {
 
     pub fn to_index(&self) -> usize {
         *self as usize
+    }
+}
+
+impl FromStr for File {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s.len() != 1 {
+            return Err(());
+        }
+
+        match s.chars().next().unwrap() {
+            'a' => Ok(File::A),
+            'b' => Ok(File::B),
+            'c' => Ok(File::C),
+            'd' => Ok(File::D),
+            'e' => Ok(File::E),
+            'f' => Ok(File::F),
+            'g' => Ok(File::G),
+            'h' => Ok(File::H),
+            _ => Err(()),
+        }
     }
 }

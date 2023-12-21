@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Rank {
     First = 0,
@@ -38,6 +40,21 @@ impl Rank {
         }
     }
 
+
+    pub fn from_char(c: char) -> Result<Self, ()> {
+        match c {
+            '1' => Ok(Rank::First),
+            '2' => Ok(Rank::Second),
+            '3' => Ok(Rank::Third),
+            '4' => Ok(Rank::Fourth),
+            '5' => Ok(Rank::Fifth),
+            '6' => Ok(Rank::Sixth),
+            '7' => Ok(Rank::Seventh),
+            '8' => Ok(Rank::Eighth),
+            _ => Err(()),
+        }
+    }
+
     pub fn down(&self) -> Rank {
         if *self as usize == 0 {
             *self
@@ -56,5 +73,27 @@ impl Rank {
 
     pub fn to_index(&self) -> usize {
         *self as usize
+    }
+}
+
+impl FromStr for Rank {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s.len() != 1 {
+            return Err(());
+        }
+
+        match s {
+            "1" => Ok(Rank::First),
+            "2" => Ok(Rank::Second),
+            "3" => Ok(Rank::Third),
+            "4" => Ok(Rank::Fourth),
+            "5" => Ok(Rank::Fifth),
+            "6" => Ok(Rank::Sixth),
+            "7" => Ok(Rank::Seventh),
+            "8" => Ok(Rank::Eighth),
+            _ => Err(()),
+        }
     }
 }

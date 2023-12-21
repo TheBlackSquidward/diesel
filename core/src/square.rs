@@ -1,4 +1,6 @@
 use std::fmt;
+use std::fmt::Display;
+use std::str::FromStr;
 use crate::file::{File, NUM_FILES};
 use crate::rank::{NUM_RANKS, Rank};
 
@@ -138,13 +140,28 @@ impl Square {
     pub const H8 : Square = Square(63);
 }
 
-impl fmt::Display for Square {
+impl FromStr for Square {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s.len() != 2 {
+            return Err(());
+        }
+        let chars: Vec<char> = s.chars().collect::<Vec<char>>();
+
+        let file = File::from_char(chars[0]).unwrap();
+        let rank = Rank::from_char(chars[1]).unwrap();
+        Ok(Square::create_square(rank, file))
+    }
+}
+
+impl Display for Square {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
             "{}{}",
-            (('a' as u8) + ((self.0 & 7) as u8)) as char,
-            (('1' as u8) + ((self.0 >> 3) as u8)) as char
+            (('a' as u8) + (self.0 & 7)) as char,
+            (('1' as u8) + (self.0 >> 3)) as char
         )
     }
 }

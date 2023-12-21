@@ -1576,10 +1576,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2532096657941c2fea9c289d370a250971c689d4f143798ff67113ec042024a5"
 
 [[package]]
-name = "mcts"
-version = "0.1.0"
-
-[[package]]
 name = "memchr"
 version = "2.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1593,10 +1589,6 @@ checksum = "5a634b1c61a95585bd15607c6ab0c4e5b226e695ff2800ba0cdccddf208c406c"
 dependencies = [
  "autocfg",
 ]
-
-[[package]]
-name = "minimax"
-version = "0.1.0"
 
 [[package]]
 name = "miniz_oxide"
