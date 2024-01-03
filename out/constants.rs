@@ -1,0 +1,35 @@
+pub const RANKS: [BitBoard; 8] = [
+    BitBoard(255),
+    BitBoard(65280),
+    BitBoard(16711680),
+    BitBoard(4278190080),
+    BitBoard(1095216660480),
+    BitBoard(280375465082880),
+    BitBoard(71776119061217280),
+    BitBoard(18374686479671623680),
+];
+
+pub const FILES: [BitBoard; 8] = [
+    BitBoard(72340172838076673),
+    BitBoard(144680345676153346),
+    BitBoard(289360691352306692),
+    BitBoard(578721382704613384),
+    BitBoard(1157442765409226768),
+    BitBoard(2314885530818453536),
+    BitBoard(4629771061636907072),
+    BitBoard(9259542123273814144),
+];
+
+pub const ADJACENT_FILES: [BitBoard; 8] = [
+    BitBoard(144680345676153346),
+    BitBoard(361700864190383365),
+    BitBoard(723401728380766730),
+    BitBoard(1446803456761533460),
+    BitBoard(2893606913523066920),
+    BitBoard(5787213827046133840),
+    BitBoard(11574427654092267680),
+    BitBoard(4629771061636907072),
+];
+
+pub const EDGES: BitBoard = BitBoard(18411139144890810879);
+

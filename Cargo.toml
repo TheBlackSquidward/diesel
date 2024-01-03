@@ -1,9 +1,10 @@
 [workspace]
 resolver="2"
 members = [
-    "core",
-    "apps/cli",
-    "apps/desktop/src-tauri", "engines/minimax", "engines/mcts", "crates/attack-tables", "crates/constants",
+    "diesel-core",
+    "crates/diesel-gen",
+    "apps/diesel-cli", "apps/diesel-desktop/src-tauri",
+    "engines/minimax", "engines/mcts",
 ]
 
 [workspace.package]
