@@ -1,5 +1,5 @@
 [package]
-name = "attack-tables"
+name = "diesel-cli"
 version = "0.1.0"
 license.workspace = true
 edition.workspace = true
@@ -8,5 +8,3 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-core = { path = "../../core" }
-rand = "0.8.5"
