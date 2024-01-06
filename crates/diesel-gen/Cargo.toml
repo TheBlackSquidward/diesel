@@ -9,3 +9,4 @@ repository.workspace = true
 
 [dependencies]
 diesel-core = { path = "../../diesel-core"}
+rand = "0.8.5"

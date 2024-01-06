@@ -17,7 +17,7 @@ pub fn generate_bishop_rays() {
                 let dst_rank = dst.get_rank().to_index() as i8;
                 let dst_file = dst.get_file().to_index() as i8;
 
-                    (src_rank == dst_rank || src_file == dst_file) && src != **dst
+                    (src_rank - dst_rank).abs() == (src_file - dst_file).abs() && src != **dst
             })
                 .fold(EMPTY_BITBOARD, |bitboard: BitBoard, square: &Square| bitboard | BitBoard::from_square(*square));
         }
@@ -32,4 +32,8 @@ pub fn write_bishop_rays(f: &mut File) {
         }
     }
     writeln!(f, "];").unwrap();
+}
+
+pub fn get_bishop_ray(square: Square) -> BitBoard {
+    unsafe { BISHOP_RAYS[square.to_index()] }
 }

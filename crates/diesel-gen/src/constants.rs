@@ -3,7 +3,8 @@ use std::io::Write;
 
 use diesel_core::bitboard::{BitBoard, EMPTY_BITBOARD};
 use diesel_core::file::NUM_FILES;
-use diesel_core::rank::NUM_RANKS;
+use diesel_core::rank::{NUM_RANKS, Rank};
+use diesel_core::square::{ALL_SQUARES, Square};
 
 static mut RANK_MASKS: [BitBoard; NUM_RANKS] = [EMPTY_BITBOARD; NUM_RANKS];
 static mut FILE_MASKS: [BitBoard; NUM_FILES] = [EMPTY_BITBOARD; NUM_FILES];
@@ -18,19 +19,53 @@ pub fn generate_constants() {
 }
 
 fn generate_rank_masks() {
-    todo!()
+    for i in 0..NUM_RANKS {
+        unsafe {
+            RANK_MASKS[i] = ALL_SQUARES
+                .iter()
+                .filter(|square| square.get_rank().to_index() == i)
+                .fold(EMPTY_BITBOARD, |bitboard: BitBoard, square: &Square| bitboard | BitBoard::from_square(*square));
+        }
+    }
 }
 
 fn generate_file_masks() {
-    todo!()
+    for i in 0..NUM_FILES {
+        unsafe {
+            FILE_MASKS[i] = ALL_SQUARES
+                .iter()
+                .filter(|square| square.get_file().to_index() == i)
+                .fold(EMPTY_BITBOARD, |bitboard: BitBoard, square: &Square| bitboard | BitBoard::from_square(*square));
+        }
+    }
 }
 
 fn generate_adjacent_file_masks() {
-    todo!()
+    for i in 0..NUM_FILES {
+        unsafe {
+            ADJACENT_FILE_MASKS[i] = ALL_SQUARES
+                .iter()
+                .filter(|square| {
+                    (square.get_file().to_index() as i8) == (i as i8) - 1
+                        || (square.get_file().to_index() as i8) == (i as i8) + 1
+                })
+                .fold(EMPTY_BITBOARD, |bitboard: BitBoard, square: &Square| bitboard | BitBoard::from_square(*square));
+        }
+    }
 }
 
 fn generate_edge_mask() {
-    todo!()
+    unsafe {
+        EDGE_MASK = ALL_SQUARES
+            .iter()
+            .filter(|square| {
+                square.get_rank() == Rank::First
+                    || square.get_rank() == Rank::Eighth
+                    || square.get_file() == diesel_core::file::File::A
+                    || square.get_file() == diesel_core::file::File::H
+            })
+            .fold(EMPTY_BITBOARD, |bitboard: BitBoard, square: &Square| bitboard | BitBoard::from_square(*square));
+    }
 }
 
 pub fn write_constants(f: &mut File) {

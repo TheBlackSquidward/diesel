@@ -580,6 +580,7 @@ name = "diesel-gen"
 version = "0.1.0"
 dependencies = [
  "diesel-core",
+ "rand 0.8.5",
 ]
 
 [[package]]
@@ -1573,6 +1574,10 @@ checksum = "2532096657941c2fea9c289d370a250971c689d4f143798ff67113ec042024a5"
 [[package]]
 name = "mcts"
 version = "0.1.0"
+dependencies = [
+ "diesel-core",
+ "diesel-gen",
+]
 
 [[package]]
 name = "memchr"

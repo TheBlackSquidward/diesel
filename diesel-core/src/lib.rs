@@ -9,4 +9,4 @@ pub mod bitboard;
 pub mod chess_move;
 pub mod board;
 pub mod castling;
-mod magic;
+pub mod magic;
